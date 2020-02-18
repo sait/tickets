@@ -1,18 +1,59 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container col-sm-6">
+    <b-card>
+      <div class="row">
+        <div class="col-sm-5">
+          <div v-if="isBadCredentials">
+        <p id="alert-text">*Revise su correo electrónico y su contraseña</p>
+      </div>
+          <form-inicio-sesion @iniciar_sesion="onIniciarSesion" />
+        </div>
+        <div class="col-sm-7">
+          <p>
+            ¿Aún no estás registrado?
+            <router-link to>Cree una cuenta</router-link>
+          </p>
+          <p>
+            <strong>Soy un agente</strong> -
+            <router-link to="/login/agentes">Acceda aquí</router-link>
+          </p>
+          <b-button variant="primary" to="/tickets">Abrir nuevo ticket</b-button>
+        </div>
+      </div>
+    </b-card>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import FormInicioSesion from "@/components/FormInicioSesion.vue";
+import apiCalls from "../apiCalls";
 export default {
-  name: 'home',
   components: {
-    HelloWorld
+    FormInicioSesion
+  },
+  data() {
+    return {
+      usuario: {
+        email: "",
+        password: ""
+      },
+      isBadCredentials: false
+    };
+  },
+  methods: {
+    onIniciarSesion(usuario) {
+      apiCalls.usuarios
+        .iniciarSesion(usuario)
+        .then(response => {
+          localStorage.Token = response.headers.token;
+          if (localStorage.getItem("Token")) {
+            this.$router.push("/inicio/2");
+          }
+        })
+        .catch(() => {
+          this.isBadCredentials = true;
+        });
+    }
   }
-}
+};
 </script>

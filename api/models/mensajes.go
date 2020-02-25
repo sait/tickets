@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/Flix14/soporte-tickets/api/db"
+	"github.com/sait/tickets/api/db"
 )
 
 //Mensaje representa

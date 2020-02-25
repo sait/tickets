@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Flix14/soporte-tickets/api/controllers"
 	"github.com/gin-gonic/gin"
+	"github.com/sait/tickets/api/controllers"
 )
 
 //InitializeRoutes d

@@ -1,12 +1,9 @@
 <template>
   <div>
-    <vue-bootstrap4-table
-      :rows="rows"
-      :columns="columns"
-      :config="config"
-      @on-select-row="changeStatus($event)"
-    >
-      <template slot="estado" slot-scope="props">{{estadosDeUsuarios[props.cell_value]}}</template>
+    <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
+      <template slot="estado" slot-scope="props">
+        <b-button @click="changeStatus(props.row)">{{estadosDeUsuarios[props.cell_value]}}</b-button>
+      </template>
       <template slot="pagination-info" slot-scope="props">
         Mostrando {{props.currentPageRowsLength}} resultados |
         {{props.filteredRowsLength}} resultados en total
@@ -93,13 +90,18 @@ export default {
   },
   methods: {
     changeStatus(selectedRow) {
-      this.rows.find(element => element.id == selectedRow.selected_item.id)
-        .estado == 1
-        ? (this.rows.find(
-            element => element.id == selectedRow.selected_item.id
-          ).estado = 0)
-        : this.rows.find(element => element.id == selectedRow.selected_item.id)
-            .estado == 1;
+      this.rows.find(element => element.id == selectedRow.id).estado == 1
+        ? (this.rows.find(element => element.id == selectedRow.id).estado = 0)
+        : (this.rows.find(element => element.id == selectedRow.id).estado = 1);
+      apiCalls.usuarios
+        .modifyUsuario(
+          selectedRow.id,
+          this.rows.find(element => element.id == selectedRow.id)
+        )
+        .then(() => {})
+        .catch(e => {
+          console.log(e.response);
+        });
     }
   },
   mounted() {

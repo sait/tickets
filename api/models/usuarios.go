@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Flix14/soporte-tickets/api/db"
 	"github.com/jinzhu/gorm"
+	"github.com/sait/tickets/api/db"
 )
 
 //Usuario sd
@@ -98,6 +98,7 @@ func (u *Usuario) UpdateUsuario(uid uint32) (*Usuario, error) {
 			"telefono":   u.Telefono,
 			"extension":  u.Ext,
 			"updated_at": time.Now(),
+			"estado":     u.Estado,
 		},
 	)
 	if db.Error != nil {

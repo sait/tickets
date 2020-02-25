@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Flix14/soporte-tickets/api/db"
 	"github.com/jinzhu/gorm"
+	"github.com/sait/tickets/api/db"
 )
 
 //Ticket representa

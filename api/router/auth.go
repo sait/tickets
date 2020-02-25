@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Flix14/soporte-tickets/api/models"
+	"github.com/sait/tickets/api/models"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

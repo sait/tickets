@@ -1,7 +1,9 @@
 <template>
   <div>
     <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
-      <template slot="estado" slot-scope="props">{{estadosDeAgentes[props.cell_value]}}</template>
+      <template slot="estado" slot-scope="props">
+        <b-button @click="changeStatus(props.row)">{{estadosDeAgentes[props.cell_value]}}</b-button>
+      </template>
       <template slot="pagination-info" slot-scope="props">
         Mostrando {{props.currentPageRowsLength}} resultados |
         {{props.filteredRowsLength}} resultados en total
@@ -79,6 +81,22 @@ export default {
   },
   components: {
     VueBootstrap4Table
+  },
+  methods: {
+    changeStatus(selectedRow) {
+      this.rows.find(element => element.id == selectedRow.id).estado == 1
+        ? (this.rows.find(element => element.id == selectedRow.id).estado = 0)
+        : (this.rows.find(element => element.id == selectedRow.id).estado = 1);
+      apiCalls.agentes
+        .modifyAgente(
+          selectedRow.id,
+          this.rows.find(element => element.id == selectedRow.id)
+        )
+        .then(() => {})
+        .catch(e => {
+          console.log(e.response);
+        });
+    }
   },
   mounted() {
     apiCalls.agentes

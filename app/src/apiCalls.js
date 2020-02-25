@@ -46,7 +46,11 @@ export default {
         cerrarSesion() {
             axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
             return axios.get(`${baseURL}/clearCookie`)
-        }
+        },
+        modifyAgente(id, data) {
+            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
+            return axios.put(`${baseURL}/agentes/${id}`, data)
+        },
     },
     usuarios: {
         getUsuarios() {

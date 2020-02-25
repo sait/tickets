@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Flix14/soporte-tickets/api/models"
 	"github.com/gin-gonic/gin"
+	"github.com/sait/tickets/api/models"
 )
 
 //CreateAgente c

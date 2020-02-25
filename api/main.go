@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/Flix14/soporte-tickets/api/db"
-	"github.com/Flix14/soporte-tickets/api/models"
-	"github.com/Flix14/soporte-tickets/api/router"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"github.com/sait/tickets/api/db"
+	"github.com/sait/tickets/api/models"
+	"github.com/sait/tickets/api/router"
 )
 
 //DB d

@@ -152,6 +152,7 @@ export default {
           .getUsuarioByEmail(this.usuario.email)
           .then(response => {
             this.ticket.usuario_id = response.data.id;
+            this.usuario.estado = response.data.estado
             apiCalls.usuarios
               .modifyUsuario(this.ticket.usuario_id, this.usuario)
               .then(() => {

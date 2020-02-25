@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Flix14/soporte-tickets/api/db"
 	"github.com/jinzhu/gorm"
+	"github.com/sait/tickets/api/db"
 )
 
 //Agente sdlksd
@@ -78,6 +78,7 @@ func (u *Agente) UpdateAgente(uid uint32) (*Agente, error) {
 			"nombre":     u.Nombre,
 			"email":      u.Email,
 			"updated_at": time.Now(),
+			"estado":     u.Estado,
 		},
 	)
 	if db.Error != nil {

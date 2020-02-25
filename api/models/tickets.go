@@ -176,3 +176,25 @@ func (t *Ticket) ChangeEstadoTicket(uid uint32) (*Ticket, error) {
 	}
 	return t, nil
 }
+
+func (t *Ticket) ChangeAgenteTicket(uid uint32) (*Ticket, error) {
+	DB, err := db.InitConection()
+	defer DB.Close()
+	if err != nil {
+		return nil, err
+	}
+	db := DB.Debug().Model(&Ticket{}).Where("id = ?", uid).Take(&Ticket{}).UpdateColumns(
+		map[string]interface{}{
+			"agente_id": t.AgenteID,
+		},
+	)
+	if db.Error != nil {
+		return &Ticket{}, db.Error
+	}
+
+	err = DB.Debug().Model(&Ticket{}).Where("id = ?", uid).Take(&t).Error
+	if err != nil {
+		return &Ticket{}, err
+	}
+	return t, nil
+}

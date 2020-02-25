@@ -37,7 +37,14 @@ export default {
   color: #42b983;
 }
 
+#multifilter_estado{
+  visibility: hidden;
+}
 
+#format-pre {
+  font-size: 1rem;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
 
 #alert-text {
   color: red;

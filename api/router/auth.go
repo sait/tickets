@@ -26,10 +26,10 @@ func GetAuthKeyUsuario(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
-	if val {
+	if val != nil {
 		c.Header("Token", validToken)
 		c.Next()
-		c.JSON(http.StatusOK, "")
+		c.JSON(http.StatusOK, val)
 		return
 	}
 	c.JSON(http.StatusNotFound, "")
@@ -48,10 +48,10 @@ func GetAuthKeyAgente(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
-	if val {
+	if val != nil {
 		c.Header("Token", validToken)
 		c.Next()
-		c.JSON(http.StatusOK, "")
+		c.JSON(http.StatusOK, val)
 		return
 	}
 	c.JSON(http.StatusNotFound, "")

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-button variant="outline-primary" v-b-modal.modal-nuevo-agente>Agregar nuevo agente</b-button>
+    <div class="container text-right">
+      <b-button variant="outline-primary" v-b-modal.modal-nuevo-agente>Agregar nuevo agente</b-button>
+    </div>
     <br>
     <br>
     <div class="container">

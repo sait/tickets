@@ -16,7 +16,7 @@
               <div class="col-sm-6">
                 <h4 class="mb-0">Ticket #{{ticketID}}</h4>
               </div>
-              <div class="col-sm-6 text-right">
+              <div v-if="false || $store.getters.getTipoUsuario == 'Agente'" class="col-sm-6 text-right">
                 <b-form-select
                   :options="estadosDeTickets"
                   v-model="datosTicket.estado"
@@ -61,6 +61,7 @@ export default {
       if (this.ticketID) {
         apiCalls.tickets.getTicketByID(this.ticketID).then(response => {
           this.datosTicket = response.data;
+          this.$root.$emit('datos-ticket', response.data); 
         });
       }
     },

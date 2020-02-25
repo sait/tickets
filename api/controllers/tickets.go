@@ -102,3 +102,30 @@ func ChangeEstadoTicket(c *gin.Context) {
 	}
 	c.JSON(http.StatusNoContent, ticketChanged)
 }
+
+//ChangeEstadoTicket c
+func ChangeAgenteTicket(c *gin.Context) {
+	body, err := c.GetRawData()
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, err.Error())
+		return
+	}
+	ticket := models.Ticket{}
+	err = json.Unmarshal(body, &ticket)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, err.Error())
+		return
+	}
+
+	uid, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	ticketChanged, err := ticket.ChangeAgenteTicket(uint32(uid))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusNoContent, ticketChanged)
+}

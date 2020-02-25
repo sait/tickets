@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-button variant="outline-primary" v-b-modal.modal-nuevo-usuario>Agregar nuevo usuario</b-button>
+    <div class="container text-right">
+      <b-button variant="outline-primary" v-b-modal.modal-nuevo-usuario>Agregar nuevo usuario</b-button>
+    </div>
     <br>
     <br>
     <div class="container"><tabla-usuarios/></div>

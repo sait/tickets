@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="container">
     <TablaTickets/>
   </div>
 </template>
 
 <script>
-import TablaTickets from '@/components/TablaTickets.vue'
+import TablaTickets from '@/components/TablaHistorial.vue'
 export default {
   components: {
     TablaTickets

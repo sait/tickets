@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg" type="dark" variant="primary">
       <b-navbar-brand to="/inicio" v-if="false || $store.getters.getTipoUsuario == 'Agente'">Inicio</b-navbar-brand>
       <b-navbar-brand
-        to="/inicio/2"
+        :to="`/usuarios/inicio`"
         v-if="false || $store.getters.getTipoUsuario == 'Usuario'"
       >Inicio</b-navbar-brand>
       <b-navbar-brand
@@ -49,6 +49,7 @@ export default {
       localStorage.removeItem("Token");
       this.$store.commit("setEmail", null);
       this.$store.commit("setTipoUsuario", null);
+      this.$store.commit("setID", null)
       this.$router.push("/");
       localStorage.removeItem('client')
       //Reparar esto, solo es temporal

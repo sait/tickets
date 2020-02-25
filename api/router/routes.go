@@ -14,7 +14,7 @@ func InitializeRoutes(r *gin.Engine) {
 	//Usuario routes
 	r.GET("/usuarios", isAuthorized(controllers.GetUsuarios))
 	r.GET("/usuarios/:id", isAuthorized(controllers.GetUsuario))
-	r.POST("/usuarios", isAuthorized(controllers.CreateUsuario))
+	r.POST("/usuarios", controllers.CreateUsuario)
 	r.PUT("/usuarios/:id", isAuthorized(controllers.UpdateUsuario))
 	r.DELETE("/usuarios/:id", isAuthorized(controllers.DeleteUsuario))
 
@@ -29,8 +29,9 @@ func InitializeRoutes(r *gin.Engine) {
 	r.GET("/tickets", isAuthorized(controllers.GetTickets))
 	r.GET("/tickets/:id", isAuthorized(controllers.GetTicket))
 	r.GET("/usuarios/:id/tickets", isAuthorized(controllers.GetTicketsByUsuario))
-	r.POST("/tickets", isAuthorized(controllers.CreateTicket))
-	r.PATCH("tickets/:id", isAuthorized(controllers.ChangeEstadoTicket))
+	r.POST("/tickets", controllers.CreateTicket)
+	r.PATCH("/tickets/:id", isAuthorized(controllers.ChangeEstadoTicket))
+	r.PUT("/tickets/:id", isAuthorized(controllers.ChangeAgenteTicket))
 
 	//Mensaje routes
 	r.GET("/tickets/:id/mensajes", isAuthorized(controllers.GetMsgsByTicket))

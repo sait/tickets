@@ -48,18 +48,27 @@ export default {
   methods: {
     //Falta implementar response y catch errors
     enviarMensaje() {
+      this.$store.getters.getTipoUsuario == "Agente" ? this.mensaje.emisor = 0 : this.mensaje.emisor = 1
+      
       this.clickOnEnviar = true;
       if (this.validarMensaje) {
         apiCalls.mensajes
           .createMensaje(this.mensaje.ticket_id, this.mensaje)
           .then(response => {
+            this.mensaje.descripcion = ''
+            this.refreshMensajes()
             console.log(response);
           })
           .catch(e => {
-            console.log(e.response);
+            if(e.response.data == "Token is expired"){
+              utilerias.sesion.cerrar()
+            }
           });
         this.clickOnEnviar = false;
       }
+    },
+    refreshMensajes() {
+      this.$root.$emit('refresh-mensajes'); 
     }
   },
   computed: {
@@ -69,7 +78,6 @@ export default {
   },
   mounted() {
     this.mensaje.ticket_id = Number.parseInt(this.$route.params.id);
-    console.log(this.mensaje.ticket_id);
   }
 };
 </script>

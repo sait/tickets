@@ -27,8 +27,8 @@ export default {
         .iniciarSesion(agente)
         .then(response => {
           localStorage.Token = response.headers.token;
-          console.log(response)
           if (localStorage.getItem("Token")) {
+            this.$store.commit("setID", response.data.id)
             this.$router.push("/inicio");
           }
         })

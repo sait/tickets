@@ -93,7 +93,6 @@ func (u *Usuario) UpdateUsuario(uid uint32) (*Usuario, error) {
 	}
 	db := DB.Debug().Model(&Usuario{}).Where("id = ?", uid).Take(&Usuario{}).UpdateColumns(
 		map[string]interface{}{
-			"password":   u.Password,
 			"nombre":     u.Nombre,
 			"email":      u.Email,
 			"telefono":   u.Telefono,
@@ -136,19 +135,19 @@ func (u *Usuario) DeleteUsuario(uid uint32) (*Usuario, error) {
 }
 
 //ValidateCredentials v
-func (u *Usuario) ValidateCredentials(email, password string) (bool, error) {
+func (u *Usuario) ValidateCredentials(email, password string) (*Usuario, error) {
 	DB, err := db.InitConection()
 	defer DB.Close()
 	if err != nil {
-		return false, nil
+		return nil, err
 	}
 
 	err = DB.Debug().Model(Usuario{}).Where("email = ? and password = ?", email, password).Take(&u).Error
 	if err != nil {
-		return false, nil
+		return nil, err
 	}
 	if gorm.IsRecordNotFoundError(err) {
-		return false, errors.New("Agente Not Found")
+		return nil, errors.New("Usuario Not Found")
 	}
-	return true, nil
+	return u, nil
 }

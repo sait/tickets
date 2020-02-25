@@ -1,6 +1,6 @@
 <template>
-<div>
-  <b-table-simple outlined hover responsive>
+  <div>
+    <b-table-simple outlined hover responsive>
       <b-thead head-variant="light">
         <b-tr>
           <b-th>ID</b-th>
@@ -20,11 +20,11 @@
         </b-tr>
       </b-tbody>
     </b-table-simple>
-</div>
+  </div>
 </template>
 
 <script>
-import apiCalls from '../apiCalls'
+import apiCalls from "../apiCalls";
 export default {
   data() {
     return {
@@ -36,32 +36,38 @@ export default {
         "Pendiente", //1
         "En proceso" //2
       ]
-    }
+    };
   },
   methods: {
     openTicket(id) {
-      this.$router.push(`/tickets/${id}`)
+      this.$router.push(`/tickets/${id}`);
     }
   },
-  mounted(){
-      apiCalls.tickets.getTicketsByUsuario(3).then(response => {
-      this.tickets = response.data
-      this.$store.commit('setEmail', response.headers.email)
-      this.$store.commit('setTipoUsuario', response.headers.client)
-    }).catch(e => {
-      if(e.response.status == 401){
-        localStorage.removeItem("Token")
-      } else if(e.response.status == 400){
-        if(e.response.data == 'Token is expired'){
-          localStorage.removeItem("Token")
-        }
-      }
-      this.$router.go()
-    })
+  mounted() {
+    if (this.$store.getters.getTipoUsuario == "Usuario" || this.$store.getters.getTipoUsuario == null) {
+      apiCalls.tickets
+        .getTicketsByUsuario(this.$store.getters.getID)
+        .then(response => {
+          this.tickets = response.data;
+          this.$store.commit("setEmail", response.headers.email);
+          this.$store.commit("setTipoUsuario", response.headers.client);
+        })
+        .catch(e => {
+          if (e.response.status == 401) {
+            localStorage.removeItem("Token");
+          } else if (e.response.status == 400) {
+            if (e.response.data == "Token is expired") {
+              localStorage.removeItem("Token");
+            }
+          }
+          this.$router.go();
+        });
+    } else {
+      this.$router.push("/");
+    }
   }
-}
+};
 </script>
 
 <style scoped>
-
 </style>

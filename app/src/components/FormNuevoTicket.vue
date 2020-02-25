@@ -256,6 +256,16 @@ export default {
     validarTitulo() {
       return utilerias.validador.isNotNull(this.ticket.titulo)
     }
+  },
+  mounted() {
+    if(this.$store.getters.getTipoUsuario == 'Usuario'){
+      apiCalls.usuarios.getUsuarioByEmail(this.$store.getters.getEmail).then(response => {
+        this.usuario.email = response.data.email
+        this.usuario.nombre = response.data.nombre
+        this.usuario.telefono = response.data.telefono
+        this.usuario.extension = response.data.extension
+      })
+    }
   }
 };
 </script>

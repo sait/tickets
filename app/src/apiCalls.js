@@ -24,6 +24,10 @@ export default {
         getTicketsByUsuario(id) {
             axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
             return axios.get(`${baseURL}/usuarios/${id}/tickets`)
+        },
+        changeAgenteTicket(id, data) {
+            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
+            return axios.put(`${baseURL}/tickets/${id}`, data)
         }
     },
     agentes: {

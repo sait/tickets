@@ -115,19 +115,19 @@ func (u *Agente) DeleteAgente(uid uint32) (*Agente, error) {
 }
 
 //ValidateCredentials v
-func (u *Agente) ValidateCredentials(email, password string) (bool, error) {
+func (u *Agente) ValidateCredentials(email, password string) (*Agente, error) {
 	DB, err := db.InitConection()
 	defer DB.Close()
 	if err != nil {
-		return false, nil
+		return u, err
 	}
 
 	err = DB.Debug().Model(Agente{}).Where("email = ? and password = ?", email, password).Take(&u).Error
 	if err != nil {
-		return false, nil
+		return u, err
 	}
 	if gorm.IsRecordNotFoundError(err) {
-		return false, errors.New("Agente Not Found")
+		return u, errors.New("Agente Not Found")
 	}
-	return true, nil
+	return u, nil
 }

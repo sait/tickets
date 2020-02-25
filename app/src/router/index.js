@@ -9,6 +9,7 @@ import Agentes from '../views/CuentasAgentes.vue'
 import Usuarios from '../views/CuentasUsuarios.vue'
 import Tickets from '../views/NuevosTickets.vue'
 import DetallesTicket from '../views/DetallesTicket.vue'
+import Registro from '../views/RegistroUsuarios.vue'
 
 Vue.use(VueRouter)
 
@@ -64,7 +65,7 @@ const routes = [
     meta: { Auth: true, title: 'Usuarios' }
   },
   {
-    path: '/inicio/2',
+    path: '/usuarios/inicio',
     name: 'homeUsuarios',
     component: HomeUsuarios,
     meta: { Auth: true, title: 'Inicio' }
@@ -73,14 +74,11 @@ const routes = [
     path: '/tickets',
     name: 'tickets',
     component: Tickets
-    // meta: { Auth: false, title: 'Tickets' },
-    //   beforeEnter: (to, from, next) => {
-    //       if (window.localStorage.getItem('Token')) {
-    //         next({ path: '/inicio' });
-    //       } else {
-    //         next();
-    //       }
-    //   },
+  },
+  {
+    path: '/registro',
+    name: 'registro',
+    component: Registro
   },
   {
     path: '/tickets/:id',

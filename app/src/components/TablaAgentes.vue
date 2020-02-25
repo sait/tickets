@@ -1,41 +1,90 @@
 <template>
-  <b-table-simple outlined hover responsive>
-    <b-thead head-variant="light">
-      <b-tr>
-        <b-th>ID</b-th>
-        <b-th>Nombre</b-th>
-        <b-th>Correo electrónico</b-th>
-        <b-th>Estado</b-th>
-      </b-tr>
-    </b-thead>
-    <b-tbody>
-      <b-tr v-for="agente in agentes" :key="agente.id">
-        <b-td>{{agente.id}}</b-td>
-        <b-td>{{agente.nombre}}</b-td>
-        <b-td>{{agente.email}}</b-td>
-        <b-td>{{estadosDeAgentes[agente.estado]}}</b-td>
-      </b-tr>
-    </b-tbody>
-  </b-table-simple>
+  <div>
+    <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
+      <template slot="estado" slot-scope="props">{{estadosDeAgentes[props.cell_value]}}</template>
+      <template slot="pagination-info" slot-scope="props">
+        Mostrando {{props.currentPageRowsLength}} resultados |
+        {{props.filteredRowsLength}} resultados en total
+    </template>
+    <template slot="simple-filter-clear-icon">
+        <b-icon-x-circle></b-icon-x-circle>
+    </template>
+    <template slot="refresh-button-text">
+        <b-icon-arrow-repeat></b-icon-arrow-repeat>
+    </template>
+    <template slot="empty-results">
+        Registros no encontrados
+    </template>
+    </vue-bootstrap4-table>
+  </div>
 </template>
 
 <script>
+import VueBootstrap4Table from "vue-bootstrap4-table";
 import apiCalls from "../apiCalls";
+import utilerias from "../utils/utilerias";
 export default {
   data() {
     return {
-      agentes: [],
       estadosDeAgentes: [
         "Inactivo", //0
         "Activo" //1
-      ]
+      ],
+      rows: [],
+      columns: [
+        {
+          label: "ID",
+          name: "id",
+          filter: {
+            type: "simple",
+            placeholder: "ID"
+          },
+          uniqueId: true,
+          sort: true,
+          initial_sort: true,
+          initial_sort_order: "desc"
+        },
+        {
+          label: "Nombre",
+          name: "nombre",
+          filter: {
+            type: "simple",
+            placeholder: "Nombre"
+          }
+        },
+        {
+          label: "Correo electrónico",
+          name: "email",
+          filter: {
+            type: "simple",
+            placeholder: "Correo electrónico"
+          }
+        },
+        {
+          label: "Estado",
+          name: "estado",
+          sort: true
+        }
+      ],
+      config: {
+        rows_selectable: true,
+        global_search: {
+          visibility: false
+        },
+        show_reset_button: false,
+        show_refresh_button: false,
+        card_mode: false
+      }
     };
+  },
+  components: {
+    VueBootstrap4Table
   },
   mounted() {
     apiCalls.agentes
       .getAgentes()
       .then(response => {
-        this.agentes = response.data;
+        this.rows = response.data;
         this.$store.commit("setEmail", response.headers.email);
         this.$store.commit("setTipoUsuario", response.headers.client);
       })
@@ -44,7 +93,7 @@ export default {
           localStorage.removeItem("Token");
         } else if (e.response.status == 400) {
           if (e.response.data == "Token is expired") {
-            localStorage.removeItem("Token");
+            utilerias.sesion.cerrar()
           }
         }
         this.$router.go();

@@ -11,7 +11,7 @@
         <div class="col-sm-7">
           <p>
             ¿Aún no estás registrado?
-            <router-link to>Cree una cuenta</router-link>
+            <router-link to="/registro">Cree una cuenta</router-link>
           </p>
           <p>
             <strong>Soy un agente</strong> -
@@ -47,7 +47,8 @@ export default {
         .then(response => {
           localStorage.Token = response.headers.token;
           if (localStorage.getItem("Token")) {
-            this.$router.push("/inicio/2");
+            this.$store.commit("setID", response.data.id)
+            this.$router.push(`/usuarios/inicio`);
           }
         })
         .catch(() => {

@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import TablaTickets from '@/components/TablaTickets.vue'
+// import TablaTickets from '@/components/TablaTickets.vue'
+import TablaTickets from '../components/TablaTickets.vue'
 
 export default {
   components: {

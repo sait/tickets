@@ -1,27 +1,24 @@
 <template>
   <div>
-    <vue-bootstrap4-table
-      :rows="rows"
-      :columns="columns"
-      :config="config"
-      @on-select-row="openTicket($event)"
-    >
+    <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config" @on-select-row="openTicket($event)">
       <template slot="estado" slot-scope="props">{{estadosDeTickets[props.cell_value]}}</template>
-      <template slot="pagination-info" slot-scope="props">
-        Mostrando {{props.currentPageRowsLength}} resultados |
-        {{props.filteredRowsLength}} resultados en total
-      </template>
       <template slot="created_at" slot-scope="props">
         <pre id="format-pre"><strong>Fecha: </strong>{{props.cell_value.split("T")[0]+"\n"}}</pre>
         <strong>Hora:</strong> {{props.cell_value.split("T")[1].split("-")[0]}}
       </template>
-      <template slot="simple-filter-clear-icon">
+      <template slot="pagination-info" slot-scope="props">
+        Mostrando {{props.currentPageRowsLength}} resultados |
+        {{props.filteredRowsLength}} resultados en total
+    </template>
+    <template slot="simple-filter-clear-icon">
         <b-icon-x-circle></b-icon-x-circle>
-      </template>
-      <template slot="refresh-button-text">
+    </template>
+    <template slot="refresh-button-text">
         <b-icon-arrow-repeat></b-icon-arrow-repeat>
-      </template>
-      <template slot="empty-results">Registros no encontrados</template>
+    </template>
+    <template slot="empty-results">
+        Registros no encontrados
+    </template>
     </vue-bootstrap4-table>
   </div>
 </template>
@@ -85,24 +82,23 @@ export default {
             mode: "multi",
             closeDropdownOnSelection: true,
             placeholder: "Select options",
-            options: [
-              {
-                name: "Cerrado",
-                value: "0"
-              },
-              {
-                name: "Pendiente",
-                value: "1"
-              },
-              {
-                name: "En proceso",
-                value: "2"
-              }
+            options: [{
+                    "name": "Cerrado",
+                    "value": "0"
+                },
+                {
+                    "name": "Pendiente",
+                    "value": "1"
+                },
+                {
+                    "name": "En proceso",
+                    "value": "2"
+                }
             ],
             init: {
-              value: [1, 2]
+                value : [0]
             }
-          },
+        },
           sort: true
         }
       ],
@@ -120,7 +116,7 @@ export default {
   components: {
     VueBootstrap4Table
   },
-  methods: {
+  methods:{
     openTicket(selectedRow) {
       this.$router.push(`/tickets/${selectedRow.selected_item.id}`);
     }

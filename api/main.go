@@ -27,20 +27,7 @@ func main() {
 
 	r := gin.Default()
 
-	// r.Use(cors.New(cors.Config{
-	// 	AllowOrigins:     []string{"http://localhost:8080"},
-	// 	AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "DELETE"},
-	// 	AllowHeaders:     []string{"Origin"},
-	// 	ExposeHeaders:    []string{"Content-Length"},
-	// 	AllowCredentials: true,
-	// 	MaxAge:           12 * time.Hour,
-	// }))
-
 	router.InitializeRoutes(r)
 
-	// config := cors.DefaultConfig()
-	// config.AllowOrigins = []string{"http://localhost:8080"}
-
-	// r.Use(cors.New(config))
 	r.Run(":3000")
 }

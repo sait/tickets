@@ -148,14 +148,17 @@ export default {
     verificarUsuario() {
       this.clickOnSubmit = true;
       if (this.validarCampos()) {
+        console.log("Hola")
         apiCalls.usuarios
           .getUsuarioByEmail(this.usuario.email)
           .then(response => {
+            console.log("Holaa")
             this.ticket.usuario_id = response.data.id;
             this.usuario.estado = response.data.estado
             apiCalls.usuarios
               .modifyUsuario(this.ticket.usuario_id, this.usuario)
               .then(() => {
+                console.log("Hola1")
                 this.crearTicket();
               })
               .catch(e => {
@@ -163,11 +166,14 @@ export default {
               });
           })
           .catch(e => {
+            console.log(e.response)
             if (e.response.data == "record not found") {
+              console.log("Holaaa")
               apiCalls.usuarios
                 .createUsuario(this.usuario)
                 .then(response => {
                   this.ticket.usuario_id = response.data.id;
+                  console.log("Hola2")
                   this.crearTicket();
                 })
                 .catch(e => {
@@ -178,9 +184,11 @@ export default {
       }
     },
     crearTicket() {
+      console.log("Hola3")
       apiCalls.tickets
         .createTicket(this.ticket)
         .then(response => {
+          console.log(response)
           this.$bvModal
             .msgBoxOk(
               `El ticket ha sido enviado correctamente.\nTicket #${response.data.id}`,

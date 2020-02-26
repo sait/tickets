@@ -73,6 +73,7 @@ export default {
           .then(response => {
             if (response.status == 201) {
               this.closeModal();
+              this.$router.go()
             } else {
               console.log(response);
             }

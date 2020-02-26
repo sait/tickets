@@ -12,7 +12,7 @@ import (
 func InitializeRoutes(r *gin.Engine) {
 	r.Use(CORSMiddleware())
 	//Usuario routes
-	r.GET("/usuarios", isAuthorized(controllers.GetUsuarios))
+	r.GET("/usuarios", controllers.GetUsuarios)
 	r.GET("/usuarios/:id", isAuthorized(controllers.GetUsuario))
 	r.POST("/usuarios", controllers.CreateUsuario)
 	r.PUT("/usuarios/:id", isAuthorized(controllers.UpdateUsuario))

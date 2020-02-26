@@ -6,7 +6,7 @@
           <div v-if="isBadCredentials">
         <p id="alert-text">*Revise su correo electrónico y su contraseña</p>
       </div>
-          <form-inicio-sesion @iniciar_sesion="onIniciarSesion" />
+          <form-inicio-sesion @iniciar_sesion="isActive" />
         </div>
         <div class="col-sm-7">
           <p>
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     onIniciarSesion(usuario) {
-      apiCalls.usuarios
+        apiCalls.usuarios
         .iniciarSesion(usuario)
         .then(response => {
           localStorage.Token = response.headers.token;
@@ -51,9 +51,21 @@ export default {
             this.$router.push(`/usuarios/inicio`);
           }
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e.response)
           this.isBadCredentials = true;
         });
+    },
+    isActive(usuario) {
+      apiCalls.usuarios.getUsuarioByEmail(usuario.email).then(response => {
+        if(response.data.estado == 1) {
+          this.onIniciarSesion(usuario)
+        } else {
+          this.isBadCredentials = true
+        }
+      }).catch(() => {
+        this.isBadCredentials = true
+      })
     }
   }
 };

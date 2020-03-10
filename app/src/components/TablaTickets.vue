@@ -126,6 +126,7 @@ export default {
     }
   },
   mounted() {
+    apiCalls.initConf()
     if (
       this.$store.getters.getTipoUsuario == "Agente" ||
       this.$store.getters.getTipoUsuario == null
@@ -145,7 +146,9 @@ export default {
               utilerias.sesion.cerrar();
             }
           }
-          this.$router.go();
+          if(e.response.status != 500){
+            this.$router.go();
+          }
         });
     } else {
       this.$router.push("/usuarios/inicio");

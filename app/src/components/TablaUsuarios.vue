@@ -109,8 +109,6 @@ export default {
       .getUsuarios()
       .then(response => {
         this.rows = response.data;
-        this.$store.commit("setEmail", response.headers.email);
-        this.$store.commit("setTipoUsuario", response.headers.client);
       })
       .catch(e => {
         if (e.response.status == 401) {

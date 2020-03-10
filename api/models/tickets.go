@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -80,6 +81,7 @@ func (t *Ticket) FindAllTickets() (*[]Ticket, error) {
 			if tickets[i].AgenteID != 0 {
 				err := DB.Debug().Model(&Agente{}).Where("id = ?", tickets[i].AgenteID).Take(&tickets[i].Agente).Error
 				if err != nil {
+					fmt.Println(err)
 					return &[]Ticket{}, err
 				}
 			}

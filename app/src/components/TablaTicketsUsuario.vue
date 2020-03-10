@@ -44,6 +44,7 @@ export default {
     }
   },
   mounted() {
+    apiCalls.initConf()
     if (this.$store.getters.getTipoUsuario == "Usuario" || this.$store.getters.getTipoUsuario == null) {
       apiCalls.tickets
         .getTicketsByUsuario(this.$store.getters.getID)

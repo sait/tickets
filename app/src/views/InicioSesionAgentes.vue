@@ -28,7 +28,9 @@ export default {
         .then(response => {
           localStorage.Token = response.headers.token;
           if (localStorage.getItem("Token")) {
+            console.log(response.data.id)
             this.$store.commit("setID", response.data.id)
+            console.log(this.$store.getters.getID)
             this.$router.push("/inicio");
           }
         })

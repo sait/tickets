@@ -1,11 +1,14 @@
 import axios from 'axios'
 
-const instance = axios.create({
-    baseURL: 'http://localhost:3000',
-    headers: { 'Token': localStorage.getItem("Token") }
-})
+let instance = axios.create({baseURL: 'http://localhost:3000'})
 
 export default {
+    initConf: function() {
+        instance = axios.create({
+            baseURL: 'http://localhost:3000',
+            headers: { 'Token': localStorage.getItem("Token") }
+        })
+    },
     tickets: {
         getTickets() {
             return instance.get(`/tickets`)

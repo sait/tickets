@@ -1,91 +1,74 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000'
+const instance = axios.create({
+    baseURL: 'http://localhost:3000',
+    headers: { 'Token': localStorage.getItem("Token") }
+})
 
 export default {
     tickets: {
         getTickets() {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/tickets`)
+            return instance.get(`/tickets`)
         },
         getTicketByID(id) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            console.log(axios.defaults.headers.common)
-            return axios.get(`${baseURL}/tickets/${id}`)
+            return instance.get(`/tickets/${id}`)
         },
         createTicket(data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.post(`${baseURL}/tickets`, data)
+            return instance.post(`/tickets`, data)
         },
         changeEstadoTicket(id, data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.patch(`${baseURL}/tickets/${id}`, data)
+            return instance.patch(`/tickets/${id}`, data)
         },
         getTicketsByUsuario(id) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/usuarios/${id}/tickets`)
+            return instance.get(`/usuarios/${id}/tickets`)
         },
         changeAgenteTicket(id, data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.put(`${baseURL}/tickets/${id}`, data)
+            return instance.put(`/tickets/${id}`, data)
         }
     },
     agentes: {
         getAgentes() {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/agentes`)
+            return instance.get(`/agentes`)
         },
         createAgente(data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.post(`${baseURL}/agentes`, data)
+            return instance.post(`/agentes`, data)
         },
         iniciarSesion(data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/auth/agentes`, {params: data})
+            return instance.get(`/auth/agentes`, { params: data })
         },
         cerrarSesion() {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/clearCookie`)
+            return instance.get(`/clearCookie`)
         },
         modifyAgente(id, data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.put(`${baseURL}/agentes/${id}`, data)
+            return instance.put(`/agentes/${id}`, data)
         },
     },
     usuarios: {
         getUsuarios() {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/usuarios`)
+            return instance.get(`/usuarios`)
         },
         getUsuarioByEmail(email) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/usuarios?email=${email}`)
+            return instance.get(`/usuarios?email=${email}`)
         },
         createUsuario(data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.post(`${baseURL}/usuarios`, data)
+            return instance.post(`/usuarios`, data)
         },
         modifyUsuario(id, data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.put(`${baseURL}/usuarios/${id}`, data)
+            return instance.put(`/usuarios/${id}`, data)
         },
         iniciarSesion(data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/auth/usuarios`, {params: data})
+            return instance.get(`/auth/usuarios`, { params: data })
         },
         cerrarSesion() {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/clearCookie`)
+            return instance.get(`/clearCookie`)
         }
     },
     mensajes: {
         createMensaje(id, data) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.post(`${baseURL}/tickets/${id}/mensajes`, data)
+            return instance.post(`/tickets/${id}/mensajes`, data)
         },
         getAllMensajesByTicket(id) {
-            axios.defaults.headers.common['Token'] = localStorage.getItem("Token")
-            return axios.get(`${baseURL}/tickets/${id}/mensajes`)
+            return instance.get(`/tickets/${id}/mensajes`)
         }
     }
 }

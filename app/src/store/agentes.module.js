@@ -1,65 +1,62 @@
 import instance from '../utils/api'
 
 export const state = {
-    tickets: [],
-    ticket: null,
+    agentes: [],
+    agente: null,
     msg: null,
-    errorMsg: null
+    errorMsg: null,
+    authData: null
 }
 
 export const mutations = {
-    saveTickets(state, tickets){
-        state.tickets = tickets
+    saveAgentes(state, agentes){
+        state.agentes = agentes
     },
-    saveTicket(state, ticket){
-        state.ticket = ticket
+    saveAgente(state, agente){
+        state.agente = agente
     },
     saveMsg(state, msg) {
         state.msg = msg
     },
     saveErrorMsg(state, errorMsg){
         state.errorMsg = errorMsg
+    },
+    saveAuthData(state, authData){
+        state.authData = authData
     }
 }
 
 export const actions = {
-    fetchTickets(context) {
-        instance().get(`/tickets`).then(response => {
-            context.commit('saveTickets', response.data)
+    getAgentes(context) {
+        instance.get(`/agentes`).then(response => {
+            context.commit('saveAgentes', response.data)
         }).catch(e => {
             context.commit('saveErrorMsg', e.reponse)
         })
     },
-    getTicketByID(context, id) {
-        instance.get(`/tickets/${id}`).then(response => {
-            context.commit('saveTicket', response.data)
+    inicarSesion(context, data) {
+        instance.get(`/auth/agentes`, { params: data }).then(response => {
+            context.commit('saveAuthData', response)
         }).catch(e => {
             context.commit('saveErrorMsg', e.reponse)
         })
     },
-    createTicket(context, data) {
-        instance.post(`/tickets`, data).then(response => {
+    cerrarSesion(context) {
+        instance.get(`/clearCookie`).then(response => {
             context.commit('saveMsg', response.data)
         }).catch(e => {
             context.commit('saveErrorMsg', e.reponse)
         })
     },
-    changeEstadoTicket(context, id, data) {
-        instance.patch(`/tickets/${id}`, data).then(response => {
+    createAgente(context, data) {
+        instance.post(`/agentes`, data).then(response => {
             context.commit('saveMsg', response.data)
         }).catch(e => {
             context.commit('saveErrorMsg', e.reponse)
         })
     },
-    getTicketsByUsuario(context, id) {
-        instance.get(`/usuarios/${id}/tickets`).then(response => {
-            context.commit('saveTickets', response.data)
-        }).catch(e => {
-            context.commit('saveErrorMsg', e.reponse)
-        })
-    },
-    changeAgenteTicket(context, id, data) {
-        instance.put(`/tickets/${id}`, data).then(response => {
+    modifyAgente(context, id, data) {
+        return instance.put(`/agentes/${id}`, data).then(response => {
             context.commit('saveMsg', response.data)
         }).catch(e => {
             context.commit('saveErrorMsg', e.reponse)
@@ -68,17 +65,20 @@ export const actions = {
 }
 
 export const getters = {
-    getTickets: state => {
-        return state.tickets
+    getAgentes: state => {
+        return state.agentes
     },
-    getTicket: state => {
-        return  state.ticket
+    getAgente: state => {
+        return  state.agente
     },
     getMsg: state => {
         return state.msg
     },
     getErrorMsg: state => {
         return state.errorMsg
+    },
+    getAuthData: state => {
+        return state.authData
     }
 }
 

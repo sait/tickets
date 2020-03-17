@@ -1,4 +1,3 @@
-
 export const state = {
     email: null,
     tipoUsuario: null,
@@ -16,6 +15,7 @@ export const mutations = {
       state.id = id
     }
   }
+  
 export const getters = {
     getEmail: state => {
       return state.email

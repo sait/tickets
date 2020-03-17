@@ -1,0 +1,21 @@
+{
+    "navHistorial": "History",
+    "navAgentes": "Agents",
+    "navUsuarios": "Users",
+    "navInicio": "Home",
+    "navCerrarSesion": "Logout",
+    "tableFecha": "Date",
+    "tableHora": "Hour",
+    "tableRecNotFound": "Records not found",
+    "tableRes": "results",
+    "tableMos": "Showing",
+    "tableTot": "in total",
+    "tableAsunto": "Affair",
+    "tableEnv": "Shipping date",
+    "tableNomUsr": "User name",
+    "tableNomAg": "Agent name",
+    "tableEstado": "State",
+    "tableCerrado": "Closed",
+    "tablePend": "Pending",
+    "tableEnProc": "In  process"
+}

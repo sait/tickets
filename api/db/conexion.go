@@ -9,6 +9,6 @@ import (
 
 //InitConection d
 func InitConection() (db *gorm.DB, err error) {
-	db, err = gorm.Open("mysql", "root:1524@(localhost:3308)/soporte_tickets?charset=utf8&parseTime=True&loc=Local")
+	db, err = gorm.Open("mysql", "root@(localhost:3308)/soporte_tickets?charset=utf8&parseTime=True&loc=Local")
 	return
 }

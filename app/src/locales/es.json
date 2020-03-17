@@ -1,0 +1,21 @@
+{
+  "navHistorial": "Historial",
+  "navAgentes": "Agentes",
+  "navUsuarios": "Usuarios",
+  "navInicio": "Inicio",
+  "navCerrarSesion": "Cerrar sesión",
+  "tableFecha": "Fecha",
+  "tableHora": "Hora",
+  "tableRecNotFound": "Registros no encontrados",
+  "tableRes": "resultados",
+  "tableMos": "Mostrando",
+  "tableTot": "en total",
+  "tableAsunto": "Asunto",
+  "tableEnv": "Fecha de envío",
+  "tableNomUsr": "Nombre de usuario",
+  "tableNomAg": "Nombre agente",
+  "tableEstado": "Estado",
+  "tableCerrado": "Cerrado",
+  "tablePend":  "Pendiente",
+  "tableEnProc": "En proceso"
+}

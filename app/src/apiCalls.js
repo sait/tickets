@@ -1,3 +1,5 @@
+//Esta clase se va a intercambiar por los módulos que ya se crearon en la store (Vuex)
+//Solo falta modificar las consultas a la api en el resto del código
 import axios from 'axios'
 
 let instance = axios.create({baseURL: 'http://localhost:3000'})

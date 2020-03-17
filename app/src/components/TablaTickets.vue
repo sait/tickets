@@ -8,12 +8,12 @@
     >
       <template slot="estado" slot-scope="props">{{estadosDeTickets[props.cell_value]}}</template>
       <template slot="pagination-info" slot-scope="props">
-        Mostrando {{props.currentPageRowsLength}} resultados |
-        {{props.filteredRowsLength}} resultados en total
+        {{$t('tableMos')}} {{props.currentPageRowsLength}} {{$t('tableRes')}} |
+        {{props.filteredRowsLength}} {{$t('tableRes')}} {{$t('tableTot')}}
       </template>
       <template slot="created_at" slot-scope="props">
-        <pre id="format-pre"><strong>Fecha: </strong>{{props.cell_value.split("T")[0]+"\n"}}</pre>
-        <strong>Hora:</strong> {{props.cell_value.split("T")[1].split("-")[0]}}
+        <pre id="format-pre"><strong>{{$t('tableFecha')}}: </strong>{{props.cell_value.split("T")[0]+"\n"}}</pre>
+        <strong>{{$t('tableHora')}}:</strong> {{props.cell_value.split("T")[1].split("-")[0]}}
       </template>
       <template slot="simple-filter-clear-icon">
         <b-icon-x-circle></b-icon-x-circle>
@@ -21,7 +21,7 @@
       <template slot="refresh-button-text">
         <b-icon-arrow-repeat></b-icon-arrow-repeat>
       </template>
-      <template slot="empty-results">Registros no encontrados</template>
+      <template slot="empty-results">{{$t('tableRecNotFound')}}</template>
     </vue-bootstrap4-table>
   </div>
 </template>
@@ -34,9 +34,9 @@ export default {
   data: function() {
     return {
       estadosDeTickets: [
-        "Cerrado", //0
-        "Pendiente", //1
-        "En proceso" //2
+        this.$t('tableCerrado'), //0
+        this.$t('tablePend'), //1
+        this.$t('tableEnProc') //2
       ],
       rows: [],
       columns: [
@@ -153,6 +153,8 @@ export default {
     } else {
       this.$router.push("/usuarios/inicio");
     }
+    this.$store.dispatch('fetchTickets')
+    console.log(this.$store.getters.getTickets)
   }
 };
 </script>
